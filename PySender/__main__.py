@@ -1,6 +1,6 @@
 import sys
 
-from PyQt6.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QApplication, QMainWindow
 
 from PySender.ui import Ui_MainWindow
 
@@ -15,7 +15,8 @@ def main():
     app = QApplication(sys.argv)
     ex = MyWidget()
     ex.show()
-    sys.exit(app.exec())
+    sys.exit(app.exec_())
+
 
 if __name__ == '__main__':
     main()
