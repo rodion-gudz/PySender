@@ -21,8 +21,3 @@ class Request:
     def send(self):
         if self.type == "GET":
             self.request = requests.get(self.url)
-
-
-re = Request("https://reqres.in/api/users")
-re.send()
-print(re.request.text)
