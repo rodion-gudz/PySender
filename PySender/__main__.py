@@ -15,7 +15,6 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         self.button_add.clicked.connect(self.add_header)
         self.delete_header_button.clicked.connect(self.remove_header)
 
-
     def send_request(self):
         request = Request(self.lineEdit_URL.text(), self.method_selector.currentText())
         request.send()
@@ -31,7 +30,6 @@ class MyWidget(QMainWindow, Ui_MainWindow):
 
     def remove_header(self):
         self.table_headers.removeRow(self.table_headers.currentRow())
-
 
 
 def main():
