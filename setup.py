@@ -7,7 +7,6 @@ setup(
     name='PySender',
     version='0.1.66',
     packages=['PySender'],
-    url='https://github.com/fast-geek/PySender',
     license='MIT',
     author='lavender',
     author_email='services@lavender.ml',
@@ -25,4 +24,13 @@ setup(
             'PySender = PySender:main'
         ]
     },
+    project_urls={
+        "Homepage": "https://github.com/fast-geek/PySender",
+        "Donate": "https://lavtg.ml/donat",
+    },
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+    ],
 )
