@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1115</width>
-    <height>854</height>
+    <height>884</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -81,7 +81,7 @@
       <item>
        <widget class="QTabWidget" name="tabWidget">
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="widget">
          <attribute name="title">
@@ -89,7 +89,7 @@
          </attribute>
          <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,100">
+           <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,0,100">
             <item alignment="Qt::AlignTop">
              <widget class="QLabel" name="label_3">
               <property name="sizePolicy">
@@ -102,9 +102,52 @@
                <string notr="true">font: 18pt;</string>
               </property>
               <property name="text">
-               <string>Basic authentication </string>
+               <string>Authentication </string>
               </property>
              </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_13">
+              <item>
+               <widget class="QLabel" name="label">
+                <property name="text">
+                 <string>Type</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="auth_typ_cbox">
+                <item>
+                 <property name="text">
+                  <string>Basic</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Digest</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>OAuth</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
             </item>
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_5">
@@ -215,12 +258,36 @@
               </column>
              </widget>
             </item>
-            <item alignment="Qt::AlignRight">
-             <widget class="QPushButton" name="delete_header_button">
-              <property name="text">
-               <string>Delete</string>
-              </property>
-             </widget>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_10">
+              <item>
+               <widget class="QPushButton" name="clear_button">
+                <property name="text">
+                 <string>Clear</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_2">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="delete_header_button">
+                <property name="text">
+                 <string>Delete</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
            </layout>
           </item>

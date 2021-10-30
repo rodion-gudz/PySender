@@ -1,7 +1,7 @@
 import json
 import sys
 
-from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem
+from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QMessageBox
 
 from PySender.request import Request
 from PySender.ui import Ui_MainWindow
@@ -14,6 +14,7 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         self.button_send.clicked.connect(self.send_request)
         self.button_add.clicked.connect(self.add_header)
         self.delete_header_button.clicked.connect(self.remove_header)
+        self.clear_button.clicked.connect(self.clear_headers)
 
     def send_request(self):
         request = Request(self.lineEdit_URL.text(), self.method_selector.currentText())
@@ -27,9 +28,18 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         self.table_headers.setRowCount(self.table_headers.rowCount() + 1)
         self.table_headers.setItem(self.table_headers.rowCount() - 1, 0, QTableWidgetItem(name))
         self.table_headers.setItem(self.table_headers.rowCount() - 1, 1, QTableWidgetItem(value))
+        self.field_name.setText("")
+        self.field_value.setText("")
 
     def remove_header(self):
-        self.table_headers.removeRow(self.table_headers.currentRow())
+        if self.table_headers.currentRow() != -1:
+            self.table_headers.removeRow(self.table_headers.currentRow())
+        else:
+            QMessageBox.warning(self, "Ошибка", "Выделите элемент который хотите удалить", QMessageBox.Ok)
+
+    def clear_headers(self):
+        self.table_headers.clearContents()
+        self.table_headers.setRowCount(0)
 
 
 def main():

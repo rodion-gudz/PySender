@@ -5,11 +5,11 @@ with open("README.md") as f:
 
 setup(
     name='PySender',
-    version='0.1.0',
+    version='0.2.3',
     packages=['PySender'],
     license='MIT',
     author='lavender',
-    author_email='services@lavender.ml',
+    author_email='support@lavender.ml',
     description='PyQt app to send REST API requests',
     long_description=long_description,
     long_description_content_type='text/markdown',
