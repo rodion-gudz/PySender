@@ -1,10 +1,10 @@
 import json
 import sys
 
+import requests
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QMessageBox
 
-from PySender.request import Request
-from PySender.ui import Ui_MainWindow
+from PySender.ui.ui import Ui_MainWindow
 
 
 class MyWidget(QMainWindow, Ui_MainWindow):
@@ -17,14 +17,33 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         self.clear_button.clicked.connect(self.clear_headers)
 
     def send_request(self):
-        request = Request(self.lineEdit_URL.text(), self.method_selector.currentText())
-        request.send()
-        self.field_response.setText(json.dumps(request.request.json(), indent=2, sort_keys=True))
-        self.field_status_code.setText(str(request.request.status_code))
+        params = dict()
+        for i in range(self.table_headers.rowCount()):
+            params[self.table_headers.item(i, 0).text()] = self.table_headers.item(i, 1).text()
+        try:
+            if self.method_selector.currentText() == "GET":
+                request = requests.get(self.lineEdit_URL.text(), params=params)
+            elif self.method_selector.currentText() == "POST":
+                request = requests.post(self.lineEdit_URL.text(), data=params)
+            elif self.method_selector.currentText() == "PUT":
+                request = requests.put(self.lineEdit_URL.text(), data=params)
+            elif self.method_selector.currentText() == "PATCH":
+                request = requests.patch(self.lineEdit_URL.text(), data=params)
+            elif self.method_selector.currentText() == "DELETE":
+                request = requests.delete(self.lineEdit_URL.text(), data=params)
+            self.field_response.setText(json.dumps(request.json(), indent=2, sort_keys=True))
+            self.field_status_code.setText(str(request.status_code))
+        except requests.exceptions.MissingSchema:
+            QMessageBox.warning(self, "Error", "Please enter a valid URL", QMessageBox.Ok)
+        except json.decoder.JSONDecodeError:
+            QMessageBox.information(self, "Error", "This site has no REST API", QMessageBox.Ok)
+        self.tabWidget.setCurrentIndex(3)
 
     def add_header(self):
-        name = self.field_name.text()
-        value = self.field_value.text()
+        name = self.field_name.text().strip()
+        value = self.field_value.text().strip()
+        if name == "" or value == "":
+            QMessageBox.warning(self, "Error", "Please enter a valid header", QMessageBox.Ok)
         self.table_headers.setRowCount(self.table_headers.rowCount() + 1)
         self.table_headers.setItem(self.table_headers.rowCount() - 1, 0, QTableWidgetItem(name))
         self.table_headers.setItem(self.table_headers.rowCount() - 1, 1, QTableWidgetItem(value))
@@ -35,7 +54,7 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         if self.table_headers.currentRow() != -1:
             self.table_headers.removeRow(self.table_headers.currentRow())
         else:
-            QMessageBox.warning(self, "Ошибка", "Выделите элемент который хотите удалить", QMessageBox.Ok)
+            QMessageBox.warning(self, "Error", "Select the item you want to delete", QMessageBox.Ok)
 
     def clear_headers(self):
         self.table_headers.clearContents()

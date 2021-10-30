@@ -1,5 +1,7 @@
 import requests
 
+# from PySender.errors import NoValidUrl
+
 
 class Request:
     def __init__(self, url, rtype="GET", **kwargs):
@@ -19,5 +21,9 @@ class Request:
         self.auth = (user, passwd)
 
     def send(self):
-        if self.type == "GET":
-            self.request = requests.get(self.url)
+        pass
+        # if self.type == "GET":
+            # try:
+            #     self.request = requests.get(self.url)
+            # except requests.exceptions.MissingSchema:
+                # NoValidUrl()
