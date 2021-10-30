@@ -5,8 +5,8 @@ with open("README.md") as f:
 
 setup(
     name='PySender',
-    version='0.2.5',
-    packages=['PySender'],
+    version='0.2.11',
+    packages=['PySender', 'PySender.ui'],
     license='MIT',
     author='lavender',
     author_email='support@lavender.ml',
