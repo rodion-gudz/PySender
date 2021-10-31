@@ -13,45 +13,9 @@ env:
   PYTHON_VERSION: '3.8.2'
 
 jobs:
-  testing:
-    name: Test installed package
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout source
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Setup Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-
-      - name: Setup caches
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.local/share/virtualenvs
-            ~/.cache/pre-commit
-            ~/.cache/pip
-          key: ${{ runner.os }}-${{ env.PYTHON_VERSION }}-venv-${{ hashFiles('**/Pipfile*') }}-${{ hashFiles('**/.pre-commit-config.yaml*') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ env.PYTHON_VERSION }}-venv
-
-      - name: Install environment
-        run: |
-          pip install pipenv
-          pipenv install --dev --deploy
-
-      - name: Test installed package
-        run: |
-          pipenv run pip install .
-          pipenv run pytest
-
   release:
     name: Create release
     runs-on: ubuntu-latest
-    needs: testing
     steps:
       - name: Create GitHub release
         uses: actions/create-release@v1
