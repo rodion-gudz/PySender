@@ -34,6 +34,8 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+      - name: Change Version
+        run: echo "__version__ = '${{ github.event.inputs.tag }}'" > ./PySender/__version__.py && ls
       - name: Install pypa/build
         run: |
           pip install pyqt5 requests twine
