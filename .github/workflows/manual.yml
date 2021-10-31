@@ -18,7 +18,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Change Version
-        run: echo "__version__ = '$GITHUB_REF'" > ./PySender/__version__.py && ls
+        run: echo "__version__ = '$(echo $GITHUB_REF | sed 's#.*/v##')'" > ./PySender/__version__.py && ls
       - name: Install pypa/build
         run: |
           pip install pyqt5 requests twine
