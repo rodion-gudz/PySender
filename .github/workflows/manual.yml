@@ -49,6 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - uses: actions/checkout@v2
       - name: Checkout source
         uses: actions/checkout@v2
         with:
