@@ -38,7 +38,7 @@ jobs:
         run: |
           pip install pyqt5 requests
           pip install build
-          python -m build
+          python setup.py sdist bdist_wheel
 
       - uses: actions/upload-artifact@v2
         with:
