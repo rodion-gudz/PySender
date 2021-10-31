@@ -1,11 +1,13 @@
 from setuptools import setup
 
+from PySender.__version__ import __version__
+
 with open("README.md") as f:
     long_description = f.read()
 
 setup(
     name='PySender',
-    version='0.2.20',
+    version=__version__,
     packages=['PySender', 'PySender.ui'],
     license='MIT',
     author='lavender',
