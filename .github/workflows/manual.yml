@@ -28,7 +28,7 @@ jobs:
     needs: release
     steps:
       - name: Change Version
-        run: ls
+        run: echo "__version__ = '${{ github.event.inputs.tag }}'" > PySender/__version__.py
       - name: Checkout source
         uses: actions/checkout@v2
         with:
