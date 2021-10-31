@@ -36,6 +36,7 @@ jobs:
 
       - name: Install pypa/build
         run: |
+          pip install -r requirements.txt
           pip install build
           python -m build
 
