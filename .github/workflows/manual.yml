@@ -36,7 +36,7 @@ jobs:
           fetch-depth: 0
       - name: Install pypa/build
         run: |
-          pip install pyqt5 requests
+          pip install pyqt5 requests twine
           pip install build
           python setup.py sdist bdist_wheel
 
