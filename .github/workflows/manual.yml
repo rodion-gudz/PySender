@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0
       - name: Change Version
         run: |
-          VERSION=$(echo $GITHUB_REF | sed 's#.*/v##')
+          VERSION=${GITHUB_REF#refs/*/}
           echo "__version__ = '$VERSION'" > ./PySender/__version__.py
       - name: Install pypa/build
         run: |
