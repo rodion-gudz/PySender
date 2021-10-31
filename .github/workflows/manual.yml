@@ -27,8 +27,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: release
     steps:
+      - uses: actions/checkout@v2
       - name: Change Version
-        run: echo "__version__ = '${{ github.event.inputs.tag }}'" > __version__.py
+        run: echo "__version__ = '${{ github.event.inputs.tag }}'" > PySender/__version__.py
       - name: Checkout source
         uses: actions/checkout@v2
         with:
