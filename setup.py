@@ -9,6 +9,7 @@ setup(
     name='PySender',
     version=__version__,
     packages=['PySender', 'PySender.ui'],
+    include_package_data=True,
     license='MIT',
     author='lavender',
     author_email='support@lavender.ml',
