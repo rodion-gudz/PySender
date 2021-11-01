@@ -19,7 +19,7 @@ setup(
     keywords='python pyqt rest api',
     url='https://github.com/fast-geek/PySender',
     python_requires='>=3.6.1',
-    package_data={'': 'res/icon.png'},
+    package_data={'': ['res/icon.png']},
     install_requires=[
         'PyQt5',
         'requests',
