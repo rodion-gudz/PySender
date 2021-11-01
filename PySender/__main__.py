@@ -29,7 +29,7 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         self.lineEdit_URL.installEventFilter(self)
 
     def send_request(self):
-        params = dict()
+        params = {}
         for i in range(self.table_headers.rowCount()):
             params[self.table_headers.item(i, 0).text()] = self.table_headers.item(i, 1).text()
         try:
