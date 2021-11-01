@@ -1,8 +1,8 @@
-name: Manual PyPi Release
+name: Publish Release to PyPi
 
 on:
   release:
-    types: [created]
+    types: [ created ]
 
 env:
   PYTHON_VERSION: '3.10.0'
@@ -12,7 +12,6 @@ jobs:
     name: Build package
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
       - name: Checkout source
         uses: actions/checkout@v2
         with:
@@ -23,8 +22,6 @@ jobs:
           echo "__version__ = '$VERSION'" > ./PySender/__version__.py
       - name: Install pypa/build
         run: |
-          pip install pyqt5 requests twine
-          pip install build
           python setup.py sdist bdist_wheel
 
       - uses: actions/upload-artifact@v2
@@ -46,6 +43,7 @@ jobs:
         with:
           name: package
           path: dist
+
       - name: Publish on PyPi
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
