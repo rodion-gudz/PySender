@@ -22,6 +22,7 @@ jobs:
           echo "__version__ = '$VERSION'" > ./PySender/__version__.py
       - name: Install pypa/build
         run: |
+          pip install pyqt5 requests twine
           python setup.py sdist bdist_wheel
 
       - uses: actions/upload-artifact@v2
