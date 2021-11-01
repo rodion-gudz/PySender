@@ -47,7 +47,7 @@ class MyWidget(QMainWindow, Ui_MainWindow):
     def add_header(self):
         name = self.field_name.text().strip()
         value = self.field_value.text().strip()
-        if name == "" or value == "":
+        if "" in (name, value):
             QMessageBox.warning(self, "Error", "Please enter a valid header", QMessageBox.Ok)
         self.table_headers.setRowCount(self.table_headers.rowCount() + 1)
         self.table_headers.setItem(self.table_headers.rowCount() - 1, 0, QTableWidgetItem(name))
