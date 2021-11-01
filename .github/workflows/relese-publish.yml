@@ -25,10 +25,6 @@ jobs:
           pip install pyqt5 requests twine
           python setup.py sdist bdist_wheel
 
-      - uses: actions/upload-artifact@v2
-        with:
-          name: package
-          path: dist/
   publish:
     name: Publish on TestPyPi
     runs-on: ubuntu-latest
