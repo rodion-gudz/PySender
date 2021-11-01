@@ -33,16 +33,9 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         for i in range(self.table_headers.rowCount()):
             params[self.table_headers.item(i, 0).text()] = self.table_headers.item(i, 1).text()
         try:
-            if self.method_selector.currentText() == "GET":
-                request = requests.get(self.lineEdit_URL.text(), params=params)
-            elif self.method_selector.currentText() == "POST":
-                request = requests.post(self.lineEdit_URL.text(), data=params)
-            elif self.method_selector.currentText() == "PUT":
-                request = requests.put(self.lineEdit_URL.text(), data=params)
-            elif self.method_selector.currentText() == "PATCH":
-                request = requests.patch(self.lineEdit_URL.text(), data=params)
-            elif self.method_selector.currentText() == "DELETE":
-                request = requests.delete(self.lineEdit_URL.text(), data=params)
+            request = getattr(requests, self.method_selector.currentText().lower()) \
+                (self.lineEdit_URL.text(), **{"params" if self.method_selector.currentText() == "GET"
+                                              else "data": params})
             self.field_response.setText(json.dumps(request.json(), indent=2, sort_keys=True))
             self.field_status_code.setText(str(request.status_code))
             self.tabWidget.setCurrentIndex(3)
@@ -74,10 +67,10 @@ class MyWidget(QMainWindow, Ui_MainWindow):
 
     def eventFilter(self, obj, event):
         if (
-            event.type() == QtCore.QEvent.KeyPress
-            and obj is self.lineEdit_URL
-            and event.key() == QtCore.Qt.Key_Return
-            and self.lineEdit_URL.hasFocus()
+                event.type() == QtCore.QEvent.KeyPress
+                and obj is self.lineEdit_URL
+                and event.key() == QtCore.Qt.Key_Return
+                and self.lineEdit_URL.hasFocus()
         ):
             self.send_request()
         return super().eventFilter(obj, event)
