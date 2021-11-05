@@ -52,7 +52,7 @@ jobs:
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
 
-  upload:
+  build-windows:
 
     runs-on: windows-latest
 
@@ -86,8 +86,26 @@ jobs:
           asset_name: PySender.exe
           asset_content_type: application/exe
 
+  build-mac:
 
-      - uses: actions/upload-artifact@v2
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Package Application
+        run: pip install -r requirements.txt
+
+      - name: Build
+        run: pyinstaller --onefile --noconsole PySender/__main__.py -n PySender
+
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
-          name: PySender
-          path: ./dist/PySender.exe
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dist/PySender.app
+          asset_name: PySender.app
+          asset_content_type: application/app
