@@ -70,6 +70,9 @@ jobs:
           name: PySender
           path: ./dist/PySender.exe
 
+      - name: list files
+        run: ls dist
+
   build-mac:
 
     runs-on: macos-latest
@@ -86,6 +89,9 @@ jobs:
         with:
           name: PySender
           path: ./dist/PySender.app
+
+      - name: list files
+        run: ls dist
 
 
   build-linux:
@@ -105,6 +111,11 @@ jobs:
           name: PySender
           path: ./dist/PySender
 
+      - name: list files
+        run: ls dist
+
+
+
   upload:
 
     runs-on: ubuntu-latest
@@ -118,10 +129,6 @@ jobs:
         with:
           name: PySender
           path: dist
-
-      - uses: actions/checkout@v2
-      - name: list files
-        run: ls dist
 
       - name: Create Release
         id: create_release
