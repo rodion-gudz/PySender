@@ -3,18 +3,12 @@ import sys
 
 import requests
 from PyQt5 import QtCore
-from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QMessageBox, QDialog
+from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem
 
-from PySender.ui.about import Ui_Dialog
+from PySender.dialogs import open_about_dialog
+from PySender.errors import *
+from PySender.request import Request
 from PySender.ui.ui import Ui_MainWindow
-
-
-def open_about():
-    dialog = QDialog()
-    dialog.ui = Ui_Dialog()
-    dialog.ui.setupUi(dialog)
-    dialog.setAttribute(QtCore.Qt.WA_DeleteOnClose)
-    dialog.exec_()
 
 
 class MyWidget(QMainWindow, Ui_MainWindow):
@@ -25,7 +19,7 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         self.button_add.clicked.connect(self.add_header)
         self.delete_header_button.clicked.connect(self.remove_header)
         self.clear_button.clicked.connect(self.clear_headers)
-        self.actionAbout.triggered.connect(open_about)
+        self.actionAbout.triggered.connect(open_about_dialog)
         self.lineEdit_URL.installEventFilter(self)
 
     def send_request(self):
@@ -33,16 +27,19 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         for i in range(self.table_headers.rowCount()):
             params[self.table_headers.item(i, 0).text()] = self.table_headers.item(i, 1).text()
         try:
-            request = getattr(requests, self.method_selector.currentText().lower()) \
-                (self.lineEdit_URL.text(), **{"params" if self.method_selector.currentText() == "GET"
-                                              else "data": params})
-            self.field_response.setText(json.dumps(request.json(), indent=2, sort_keys=True))
-            self.field_status_code.setText(str(request.status_code))
+            user, passwd = self.field_username.text(), self.field_password.text() if \
+                self.field_username.text() != "" or self.field_password.text() != "" \
+                else None
+            url = self.lineEdit_URL.text()
+            method = self.method_selector.currentText().lower()
+            res, status_code = Request(url, method, user, passwd, params).send()
+            self.field_response.setText(res)
+            self.field_status_code.setText(str(status_code))
             self.tabWidget.setCurrentIndex(3)
         except requests.exceptions.MissingSchema:
-            QMessageBox.warning(self, "Error", "Please enter a valid URL", QMessageBox.Ok)
+            valid_url(self)
         except json.decoder.JSONDecodeError:
-            QMessageBox.information(self, "Error", "This site has no REST API", QMessageBox.Ok)
+            json_error(self)
 
     def add_header(self):
         name = self.field_name.text().strip()

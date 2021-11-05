@@ -23,7 +23,7 @@ class Ui_Dialog(object):
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.label_2 = QtWidgets.QLabel(Dialog)
         self.label_2.setText("")
-        self.label_2.setPixmap(QtGui.QPixmap("../res/icon.png"))
+        self.label_2.setPixmap(QtGui.QPixmap("PySender/res/icon.png"))
         self.label_2.setScaledContents(True)
         self.label_2.setObjectName("label_2")
         self.horizontalLayout_2.addWidget(self.label_2)
