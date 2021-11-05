@@ -105,7 +105,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{ build-windows.steps.create_release.outputs.upload_url }}
           asset_path: ./dist/PySender.app
           asset_name: PySender.app
           asset_content_type: application/app
