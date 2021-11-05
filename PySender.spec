@@ -4,7 +4,7 @@
 block_cipher = None
 
 
-a = Analysis(['PySender/__main__.py'],
+a = Analysis(['PySender\\__main__.py'],
              pathex=[],
              binaries=[],
              datas=[],
