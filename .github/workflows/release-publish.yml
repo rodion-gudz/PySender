@@ -63,7 +63,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Build
-        run: pyinstaller --onefile --noconsole PySender\__main__.py -n PySender && ls dist
+        run: pyinstaller --onefile --noconsole PySender\__main__.py -n PySender
 
       - uses: actions/upload-artifact@v2
         with:
@@ -80,7 +80,7 @@ jobs:
         run: pip3 install -r requirements.txt
 
       - name: Build
-        run: pyinstaller --onefile --noconsole PySender/__main__.py -n PySender && ls dist
+        run: pyinstaller --onefile --noconsole PySender/__main__.py -n PySender
 
       - uses: actions/upload-artifact@v2
         with:
@@ -98,14 +98,12 @@ jobs:
         run: pip3 install -r requirements.txt
 
       - name: Build
-        run: pyinstaller --onefile --noconsole PySender/__main__.py -n PySender && ls dist
+        run: pyinstaller --onefile --noconsole PySender/__main__.py -n PySender
 
       - uses: actions/upload-artifact@v2
         with:
           name: PySender
           path: ./dist/PySender
-
-
 
   upload:
 
