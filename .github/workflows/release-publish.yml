@@ -63,15 +63,12 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Build
-        run: pyinstaller --onefile --noconsole PySender\__main__.py -n PySender
+        run: pyinstaller --onefile --noconsole PySender\__main__.py -n PySender && ls dist
 
       - uses: actions/upload-artifact@v2
         with:
           name: PySender
           path: ./dist/PySender.exe
-
-      - name: list files
-        run: ls dist
 
   build-mac:
 
@@ -83,15 +80,12 @@ jobs:
         run: pip3 install -r requirements.txt
 
       - name: Build
-        run: pyinstaller --onefile --noconsole PySender/__main__.py -n PySender
+        run: pyinstaller --onefile --noconsole PySender/__main__.py -n PySender && ls dist
 
       - uses: actions/upload-artifact@v2
         with:
           name: PySender
           path: ./dist/PySender.app
-
-      - name: list files
-        run: ls dist
 
 
   build-linux:
@@ -104,15 +98,12 @@ jobs:
         run: pip3 install -r requirements.txt
 
       - name: Build
-        run: pyinstaller --onefile --noconsole PySender/__main__.py -n PySender
+        run: pyinstaller --onefile --noconsole PySender/__main__.py -n PySender && ls dist
 
       - uses: actions/upload-artifact@v2
         with:
           name: PySender
           path: ./dist/PySender
-
-      - name: list files
-        run: ls dist
 
 
 
