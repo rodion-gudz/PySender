@@ -118,8 +118,6 @@ jobs:
         with:
           name: PySender
           path: dist
-
-      - name: ls
         run: ls dist
 
       - name: Create Release
