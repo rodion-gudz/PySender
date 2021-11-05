@@ -4,20 +4,3 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-
-    runs-on: windows-latest
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Package Application
-        run: pip install -r requirements.txt
-
-      - name: Build
-        run: pyinstaller --onefile --noconsole PySender\__main__.py -n PySender
-
-      - uses: actions/upload-artifact@v2
-        with:
-          name: PySender
-          path: ./dist/PySender.exe
