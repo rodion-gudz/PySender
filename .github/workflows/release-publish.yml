@@ -119,6 +119,7 @@ jobs:
           name: PySender
           path: dist
 
+      - uses: actions/checkout@v2
       - name: list files
         run: ls dist
 
