@@ -94,7 +94,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Package Application
-        run: pip install -r requirements.txt
+        run: pip3 install -r requirements.txt
 
       - name: Build
         run: pyinstaller --onefile --noconsole PySender/__main__.py -n PySender
