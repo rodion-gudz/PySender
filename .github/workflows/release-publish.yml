@@ -65,7 +65,7 @@ jobs:
       - name: Build
         run: pyinstaller --onefile --noconsole PySender\__main__.py -n PySender
 
-      - id: ls
+      - id: ls2
         run: ls .\dist
 
       - uses: actions/upload-artifact@v2
@@ -85,7 +85,7 @@ jobs:
       - name: Build
         run: pyinstaller --onefile --noconsole PySender/__main__.py -n PySender
 
-      - id: ls
+      - id: ls3
         run: ls dist
 
       - uses: actions/upload-artifact@v2
