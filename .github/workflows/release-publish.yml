@@ -65,6 +65,61 @@ jobs:
       - name: Build
         run: pyinstaller --onefile --noconsole PySender\__main__.py -n PySender
 
+      - uses: actions/upload-artifact@v2
+        with:
+          name: PySender
+          path: ./dist/PySender.exe
+
+  build-mac:
+
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Package Application
+        run: pip3 install -r requirements.txt
+
+      - name: Build
+        run: pyinstaller --onefile --noconsole PySender/__main__.py -n PySender
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: PySender
+          path: ./dist/PySender.app
+
+
+  build-linux:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Package Application
+        run: pip3 install -r requirements.txt
+
+      - name: Build
+        run: pyinstaller --onefile --noconsole PySender/__main__.py -n PySender
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: PySender
+          path: ./dist/PySender
+
+  upload:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Download built artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: PySender
+          path: dist
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -86,26 +141,24 @@ jobs:
           asset_name: PySender.exe
           asset_content_type: application/exe
 
-  build-mac:
-
-    runs-on: macos-latest
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Package Application
-        run: pip3 install -r requirements.txt
-
-      - name: Build
-        run: pyinstaller --onefile --noconsole PySender/__main__.py -n PySender
-
-      - name: Upload Release Asset
-        id: upload-release-asset
+      - name: Upload Release Asset Mac
+        id: upload-release-asset-mac
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
-          upload_url: ${{ build-windows.steps.create_release.outputs.upload_url }}
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./dist/PySender.app
           asset_name: PySender.app
           asset_content_type: application/app
+
+      - name: Upload Release Asset Linux
+        id: upload-release-asset-lin
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dist/PySender
+          asset_name: PySender
+          asset_content_type: application/linux
