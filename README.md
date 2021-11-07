@@ -2,10 +2,6 @@
 ![](https://img.shields.io/pypi/pyversions/PySender)
 ![](https://img.shields.io/pypi/l/PySender)
 
-
-
-
-
 ## What is it?
 ### PyQt app to send REST API requests
 ### PyPi - [PySender](https://pypi.org/project/PySender/)
