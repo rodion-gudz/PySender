@@ -127,11 +127,6 @@
                   <string>Digest</string>
                  </property>
                 </item>
-                <item>
-                 <property name="text">
-                  <string>OAuth</string>
-                 </property>
-                </item>
                </widget>
               </item>
               <item>
@@ -387,6 +382,14 @@
     <addaction name="actionAbout"/>
     <addaction name="actionSupport"/>
    </widget>
+   <widget class="QMenu" name="menuRequest">
+    <property name="title">
+     <string>Request</string>
+    </property>
+    <addaction name="actionSave"/>
+    <addaction name="actionOpen"/>
+   </widget>
+   <addaction name="menuRequest"/>
    <addaction name="menuProgram"/>
    <addaction name="menuHelp"/>
   </widget>
@@ -404,6 +407,16 @@
   <action name="actionExit">
    <property name="text">
     <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </action>
+  <action name="actionOpen">
+   <property name="text">
+    <string>Open</string>
    </property>
   </action>
  </widget>

@@ -85,13 +85,13 @@ jobs:
       - name: Build
         run: pyinstaller --onefile --noconsole PySender/__main__.py -n PySender
 
-      - id: ls3
-        run: ls dist
+      - id: zip
+        run: zip ./dist/PySender.app && ls
 
       - uses: actions/upload-artifact@v2
         with:
           name: PySender
-          path: ./dist/
+          path: PySender.zip
 
 
   build-linux:
