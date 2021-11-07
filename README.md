@@ -26,7 +26,7 @@
 
 ### Second method
 * #### Open your terminal/CMD
-* #### Install PySender via pip: ```pip3 install PySender```
+* #### Install PySender via ```pip3 install PySender```
 
 ## Requirements
 
