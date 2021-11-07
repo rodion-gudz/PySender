@@ -1,8 +1,7 @@
-name: Publish Release to PyPi
+name: Publish Release to PyPi and GitHub
 
 on:
   push:
-    # Sequence of patterns matched against refs/tags
     tags:
       - 'v*'
 
@@ -82,7 +81,7 @@ jobs:
       - name: Build
         run: pyinstaller --onefile --noconsole PySender/__main__.py -n PySender
 
-      - id: zip
+      - id: Zip
         run: cd dist && zip -r PySender.zip PySender.app
 
       - uses: actions/upload-artifact@v2
@@ -107,23 +106,29 @@ jobs:
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
           release_name: PySender ${{ github.ref }}
           draft: false
           prerelease: false
-      - name: Upload Release Asset
-        id: upload-release-asset
+      - name: Upload Windows Release Asset
+        id: upload-release-asset-wn
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./dist/PySender.exe
-          asset_name: PySender-MacOS.exe
+          asset_name: PySender-Windows.exe
           asset_content_type: application/exe
 
-      - name: Upload Release Asset Mac
+      - name: Upload MacOS Release Asset
         id: upload-release-asset-mac
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./dist/PySender.zip
