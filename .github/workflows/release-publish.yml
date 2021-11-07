@@ -86,12 +86,12 @@ jobs:
         run: pyinstaller --onefile --noconsole PySender/__main__.py -n PySender
 
       - id: zip
-        run: cd dist && zip PySender.app && ls
+        run: cd dist && zip -r PySender.zip PySender.app
 
       - uses: actions/upload-artifact@v2
         with:
           name: PySender
-          path: PySender.zip
+          path: ./dist/PySender.zip
 
 
   build-linux:
