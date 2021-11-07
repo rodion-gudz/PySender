@@ -1,6 +1,0 @@
-name: Package Application with Pyinstaller
-
-on:
-  workflow_dispatch:
-
-jobs:
