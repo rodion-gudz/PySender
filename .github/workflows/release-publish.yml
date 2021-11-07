@@ -83,7 +83,7 @@ jobs:
         run: pip3 install -r requirements.txt
 
       - name: Build
-        run: pyinstaller --onefile --noconsole --target-architecture universal2 PySender/__main__.py -n PySender
+        run: pyinstaller --onefile --noconsole PySender/__main__.py -n PySender
 
       - id: zip
         run: cd dist && zip PySender.app && ls
