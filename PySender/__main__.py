@@ -1,5 +1,6 @@
 import json
 import sys
+import webbrowser
 
 import requests
 from PyQt5 import QtCore
@@ -20,7 +21,9 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         self.delete_header_button.clicked.connect(self.remove_header)
         self.clear_button.clicked.connect(self.clear_headers)
         self.actionAbout.triggered.connect(open_about_dialog)
+        self.actionSupport.triggered.connect(lambda: webbrowser.open('https://t.me/fast_geek'))
         self.lineEdit_URL.installEventFilter(self)
+        self.tabWidget.setCurrentIndex(0)
 
     def send_request(self):
         params = {}

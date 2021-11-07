@@ -81,7 +81,7 @@
       <item>
        <widget class="QTabWidget" name="tabWidget">
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="widget">
          <attribute name="title">
@@ -283,30 +283,6 @@
                </widget>
               </item>
              </layout>
-            </item>
-           </layout>
-          </item>
-         </layout>
-        </widget>
-        <widget class="QWidget" name="tab_10">
-         <attribute name="title">
-          <string>Body</string>
-         </attribute>
-         <layout class="QHBoxLayout" name="horizontalLayout_8">
-          <item>
-           <layout class="QVBoxLayout" name="verticalLayout_4">
-            <item>
-             <widget class="QLabel" name="label_body">
-              <property name="styleSheet">
-               <string notr="true">font: 18pt;</string>
-              </property>
-              <property name="text">
-               <string>Body</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QTextEdit" name="field_body"/>
             </item>
            </layout>
           </item>
