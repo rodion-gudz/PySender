@@ -358,14 +358,13 @@
     <addaction name="actionAbout"/>
     <addaction name="actionSupport"/>
    </widget>
-   <widget class="QMenu" name="menuRequest">
+   <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>Request</string>
+     <string>File</string>
     </property>
     <addaction name="actionSave"/>
-    <addaction name="actionOpen"/>
    </widget>
-   <addaction name="menuRequest"/>
+   <addaction name="menuFile"/>
    <addaction name="menuProgram"/>
    <addaction name="menuHelp"/>
   </widget>
@@ -391,6 +390,11 @@
    </property>
   </action>
   <action name="actionOpen">
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </action>
+  <action name="actionOpen_2">
    <property name="text">
     <string>Open</string>
    </property>

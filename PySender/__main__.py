@@ -4,7 +4,7 @@ import webbrowser
 
 import requests
 from PyQt5 import QtCore
-from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem
+from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QFileDialog
 
 from PySender.dialogs import open_about_dialog
 from PySender.errors import *
@@ -23,6 +23,7 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         self.actionAbout.triggered.connect(open_about_dialog)
         self.actionSupport.triggered.connect(lambda: webbrowser.open('https://t.me/fast_geek'))
         self.actionExit.triggered.connect(lambda: exit(0))
+        self.actionSave.triggered.connect(self.save_file)
         self.lineEdit_URL.installEventFilter(self)
         self.tabWidget.setCurrentIndex(0)
 
@@ -39,7 +40,7 @@ class MyWidget(QMainWindow, Ui_MainWindow):
             res, status_code = Request(url, method, user, passwd, params).send()
             self.field_response.setText(res)
             self.field_status_code.setText(str(status_code))
-            self.tabWidget.setCurrentIndex(3)
+            self.tabWidget.setCurrentIndex(2)
         except requests.exceptions.MissingSchema:
             valid_url(self)
         except json.decoder.JSONDecodeError:
@@ -75,6 +76,17 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         ):
             self.send_request()
         return super().eventFilter(obj, event)
+
+    def save_file(self):
+        if self.field_response.toPlainText() == "":
+            empty_request(self)
+        file_name = QFileDialog.getSaveFileName(self, "Save File", "", "Text Files (*.txt)")
+        if file_name[0] != "":
+            with open(file_name[0], "w") as f:
+                f.write(f"TYPE: {self.method_selector.currentText()} \n")
+                f.write(f"URL: {self.lineEdit_URL.text()} \n")
+                f.write(f"STATUS CODE: {self.field_status_code.text()} \n")
+                f.write(f"RESPONSE: {self.field_response.toPlainText()}")
 
 
 def main():

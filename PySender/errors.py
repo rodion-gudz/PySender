@@ -7,3 +7,7 @@ def valid_url(self):
 
 def json_error(self):
     QMessageBox.information(self, "Error", "This site has no REST API", QMessageBox.Ok)
+
+
+def empty_request(self):
+    QMessageBox.information(self, "Error", "Please send a request first", QMessageBox.Ok)
