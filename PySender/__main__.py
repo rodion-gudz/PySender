@@ -22,6 +22,7 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         self.clear_button.clicked.connect(self.clear_headers)
         self.actionAbout.triggered.connect(open_about_dialog)
         self.actionSupport.triggered.connect(lambda: webbrowser.open('https://t.me/fast_geek'))
+        self.actionExit.triggered.connect(lambda: exit(0))
         self.lineEdit_URL.installEventFilter(self)
         self.tabWidget.setCurrentIndex(0)
 
