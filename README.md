@@ -3,7 +3,7 @@
 ![](https://img.shields.io/pypi/l/PySender)
 
 ## What is it?
-## [RU Description](https://github.com/fast-geek/PySender/description.md)
+## [RU Description](https://github.com/fast-geek/PySender/blob/master/description.md)
 
 ### PyQt app to send REST API requests
 ### PyPi - [PySender](https://pypi.org/project/PySender/)
