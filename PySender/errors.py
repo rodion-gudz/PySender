@@ -11,3 +11,11 @@ def json_error(self):
 
 def empty_request(self):
     QMessageBox.information(self, "Error", "Please send a request first", QMessageBox.Ok)
+
+
+def no_db(self):
+    QMessageBox.warning(self, "Error", "requests.db not found", QMessageBox.Ok)
+
+
+def no_recent_request(self):
+    QMessageBox.warning(self, "Error", "Saved request not found", QMessageBox.Ok)
