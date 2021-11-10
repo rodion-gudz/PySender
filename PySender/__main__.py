@@ -1,4 +1,5 @@
 import json
+import os
 import sqlite3
 import sys
 import webbrowser
@@ -11,6 +12,8 @@ from PySender.dialogs import open_about_dialog
 from PySender.errors import *
 from PySender.request import Request
 from PySender.ui.ui import Ui_MainWindow
+
+db_path = "requests.db"
 
 
 class MyWidget(QMainWindow, Ui_MainWindow):
@@ -92,33 +95,33 @@ class MyWidget(QMainWindow, Ui_MainWindow):
                 f.write(f"RESPONSE: {self.field_response.toPlainText()}")
 
     def save_request(self):
-        con = sqlite3.connect("PySender/requests.db")
-        cur = con.cursor()
-        rtype = self.method_selector.currentIndex() + 1
-        url = self.lineEdit_URL.text()
-        try:
+        if os.path.isfile(db_path):
+            con = sqlite3.connect(db_path)
+            cur = con.cursor()
+            rtype = self.method_selector.currentIndex() + 1
+            url = self.lineEdit_URL.text()
             if cur.execute("""SELECT Count(*) FROM requests""").fetchone()[0] == 0:
                 cur.execute(f"""INSERT INTO requests (type, url) VALUES('{rtype}', '{url}')""")
             else:
                 cur.execute(f"""UPDATE requests SET type = '{rtype}', url = '{url}' WHERE id = 1""")
-        except sqlite3.OperationalError:
+            con.commit()
+            con.close()
+        else:
             no_db(self)
-        con.commit()
-        con.close()
 
     def revert_request(self):
-        con = sqlite3.connect("PySender/requests.db")
-        cur = con.cursor()
-        try:
+        if os.path.isfile(db_path):
+            con = sqlite3.connect(db_path)
+            cur = con.cursor()
             try:
                 _, rtype, url = cur.execute("""SELECT * FROM requests""").fetchall()[0]
                 self.method_selector.setCurrentIndex(rtype - 1)
                 self.lineEdit_URL.setText(url)
             except IndexError:
                 no_recent_request(self)
-        except sqlite3.OperationalError:
+            con.close()
+        else:
             no_db(self)
-        con.close()
 
 
 def main():
