@@ -34,9 +34,11 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         self.tabWidget.setCurrentIndex(0)
 
     def send_request(self):
-        params = {}
-        for i in range(self.table_headers.rowCount()):
-            params[self.table_headers.item(i, 0).text()] = self.table_headers.item(i, 1).text()
+        params = {
+            self.table_headers.item(i, 0).text(): self.table_headers.item(i, 1).text()
+            for i in range(self.table_headers.rowCount())
+        }
+
         try:
             user, passwd = self.field_username.text(), self.field_password.text() if \
                 self.field_username.text() != "" or self.field_password.text() != "" \
